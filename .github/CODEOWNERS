@@ -1,0 +1,4 @@
+# Every path in this repository requires the owner's review before a pull
+# request can merge. Combined with the branch ruleset on `main`, this means
+# nothing lands without an explicit sign-off from the repository owner.
+* @nickypags2358-design
