@@ -94,10 +94,22 @@ def export(code, title="Widget", desc="", extra_css="", subdir=None):
     open(fp, "w", encoding="utf-8").write(html)
     return fp, len(html)
 
+def render_target(path_or_url):
+    """Only http(s) URLs, or files that live inside OUT, may be handed to Chrome.
+    Rejects file://, other schemes and any local path outside the output directory."""
+    if "://" in path_or_url:
+        if not path_or_url.lower().startswith(("http://", "https://")):
+            raise ValueError("only http(s) URLs can be rendered: " + path_or_url)
+        return path_or_url
+    real = os.path.realpath(path_or_url)
+    if os.path.commonpath([OUT_REAL, real]) != OUT_REAL:
+        raise ValueError("only files inside the output directory can be rendered: " + path_or_url)
+    return "file://" + real
+
 def to_png(path_or_url, out=None, w=1400, h=900, wait=9000):
     if not os.path.exists(CHROME):
         raise RuntimeError("Chrome not found (set CHROME_BIN to override the default path)")
-    url = path_or_url if "://" in path_or_url else "file://" + os.path.abspath(path_or_url)
+    url = render_target(path_or_url)
     if not out:
         base = os.path.splitext(os.path.basename(path_or_url))[0] or "render"
         os.makedirs(OUT, exist_ok=True)
