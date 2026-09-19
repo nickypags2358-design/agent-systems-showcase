@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System Atlas Excerpt</title>
+<meta name="description" content="The estate at a glance: two inventories of a two-runtime agent operating environment, its lanes, hook plane, security plane, scheduler and proof model. Excerpt; portions omitted.">
+<style>
+:root {
+  --bg: #fbfaf7;
+  --fg: #1f1e1b;
+  --muted: #5f5c55;
+  --line: #d9d5cc;
+  --panel: #f1eee7;
+  --accent: #2f5d8a;
+  --lane: #e6eef6;
+  --hook: #f4ead8;
+  --sec: #f6e1df;
+  --state: #e4efe4;
+  --sched: #ece6f4;
+  --box: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15161a;
+    --fg: #e8e6e1;
+    --muted: #a09d95;
+    --line: #34363d;
+    --panel: #1e2026;
+    --accent: #8fb4dc;
+    --lane: #1e2a38;
+    --hook: #34301f;
+    --sec: #3a2626;
+    --state: #223022;
+    --sched: #2b2438;
+    --box: #23252b;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15161a;
+  --fg: #e8e6e1;
+  --muted: #a09d95;
+  --line: #34363d;
+  --panel: #1e2026;
+  --accent: #8fb4dc;
+  --lane: #1e2a38;
+  --hook: #34301f;
+  --sec: #3a2626;
+  --state: #223022;
+  --sched: #2b2438;
+  --box: #23252b;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+main { max-width: 880px; margin: 0 auto; padding: 32px 16px 48px; overflow-x: hidden; }
+h1 { overflow-wrap: anywhere; }
+header { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 24px; }
+h1 { font-size: 1.75rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 1.2rem; margin: 36px 0 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+h3 { font-size: 1rem; margin: 20px 0 6px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--muted); font-size: 0.95rem; }
+.kicker { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; color: var(--muted); margin: 0 0 4px; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0 16px; font-size: 0.92rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.wrap { overflow-x: auto; }
+.note { background: var(--panel); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 12px 0 16px; font-size: 0.92rem; }
+ul { padding-left: 20px; margin: 0 0 12px; }
+li { margin-bottom: 4px; }
+.grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0 24px; }
+.grid > table { min-width: 0; }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+figure { margin: 12px 0 8px; }
+figcaption { color: var(--muted); font-size: 0.82rem; margin-top: 6px; }
+svg { width: 100%; height: auto; display: block; }
+svg text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+svg .t-muted { fill: var(--muted); }
+svg .plane { stroke: var(--line); stroke-width: 1; }
+svg .lane { fill: var(--lane); }
+svg .hook { fill: var(--hook); }
+svg .sec { fill: var(--sec); }
+svg .state { fill: var(--state); }
+svg .sched { fill: var(--sched); }
+svg .box { fill: var(--box); stroke: var(--line); stroke-width: 1; }
+svg .edge { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+svg .edge-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrow { fill: var(--muted); }
+footer { margin-top: 40px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.82rem; }
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  main { max-width: none; padding: 0; }
+  h2 { break-after: avoid; }
+  table, figure, .note { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  svg .lane { fill: #eef2f6; } svg .hook { fill: #f5efe3; } svg .sec { fill: #f7e9e8; } svg .state { fill: #eaf1ea; } svg .sched { fill: #efebf4; } svg .box { fill: #fff; stroke: #999; }
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="kicker">Proof of work · excerpt</p>
+  <h1>System atlas: the estate at a glance</h1>
+  <p class="lede">The private system is a two-runtime AI operating environment: Claude Code and a second vendor's agent CLI. This page is an excerpt of two separate inventories of it. They were taken by different instruments on different days, so their counts do not match each other and were not reconciled by hand. Everything below is descriptive. None of it is verifiable from this repository.</p>
+</header>
+
+<div class="wrap"><table>
+<tr><th>Inventory</th><th>Method</th><th>Date</th><th>Headline</th></tr>
+<tr><td>Component register</td><td>Every component page shows where it lives, what it does and what has been verified; four proof layers graded independently</td><td>September 2026</td><td>2,692 components · 3,123 relationships · 10 categories</td></tr>
+<tr><td>Generated system diagram</td><td>Drawn by a script from a single machine-generated counts file, so nothing is counted twice</td><td>2026-09-18</td><td>63 nodes across 12 planes</td></tr>
+</table></div>
+
+<h2>Counts line (generated diagram, 2026-09-18)</h2>
+<p>Read from one machine-generated counts file; the diagram never counts twice.</p>
+<div class="grid">
+<table>
+<tr><th>Kind</th><th class="num">Count</th></tr>
+<tr><td>Agents (subagent definitions)</td><td class="num">38</td></tr>
+<tr><td>Hooks</td><td class="num">44</td></tr>
+<tr><td>Commands</td><td class="num">8</td></tr>
+<tr><td>Prompts</td><td class="num">10</td></tr>
+<tr><td>Skills</td><td class="num">57</td></tr>
+</table>
+<table>
+<tr><th>Kind</th><th class="num">Count</th></tr>
+<tr><td>Python scripts</td><td class="num">45</td></tr>
+<tr><td>Shell scripts</td><td class="num">237</td></tr>
+<tr><td>Oversight scripts</td><td class="num">111 (67 scheduled)</td></tr>
+<tr><td>Scheduler manifest rows</td><td class="num">159</td></tr>
+<tr><td>Repositories</td><td class="num">40</td></tr>
+</table>
+</div>
+
+<h2>Category map (component register, September 2026)</h2>
+<p>2,692 components in 10 categories, with 3,123 declared relationships between them. The overview map aggregates those into 22 category-to-category connections. Lines mean recorded relationships, not live traffic.</p>
+<div class="grid">
+<table>
+<tr><th>Category</th><th class="num">Components</th></tr>
+<tr><td>Capabilities</td><td class="num">1,786</td></tr>
+<tr><td>Automation</td><td class="num">276</td></tr>
+<tr><td>Integrations</td><td class="num">187</td></tr>
+<tr><td>Knowledge</td><td class="num">182</td></tr>
+<tr><td>Coordination</td><td class="num">120</td></tr>
+</table>
+<table>
+<tr><th>Category</th><th class="num">Components</th></tr>
+<tr><td>Projects</td><td class="num">100</td></tr>
+<tr><td>New build</td><td class="num">23</td></tr>
+<tr><td>Runtimes</td><td class="num">10</td></tr>
+<tr><td>Computers</td><td class="num">5</td></tr>
+<tr><td>Recovery</td><td class="num">3</td></tr>
+</table>
+</div>
+<div class="note">The register is explicit about what it is not: it inventories 2,692 components but carries passing runtime evidence for only 7 of them, and keeps 11 recorded gaps visible rather than hiding them. Discovery is not a health check. Unknown states remain visible.</div>
+
+<h2>Three execution lanes, one hook plane</h2>
+<figure>
+<svg viewBox="0 0 860 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diag-title diag-desc">
+  <title id="diag-title">Planes and lanes</title>
+  <desc id="diag-desc">Three execution lanes feed one hook plane of six lifecycle events. The pre-tool-use event feeds a fail-closed security plane. The hook plane reads and writes durable state. A scheduler plane drives the oversight layer, which writes to durable state and spawns workflow runs. Durable state is injected at session start.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="arrow"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes plane -->
+  <rect x="20" y="20" width="820" height="110" rx="6" class="plane lane"/>
+  <text x="32" y="40" font-size="12" font-weight="600">Three execution lanes</text>
+  <rect x="32" y="52" width="256" height="66" rx="4" class="box"/>
+  <text x="44" y="72" font-size="12" font-weight="600">Main lane</text>
+  <text x="44" y="88" font-size="11" class="t-muted">interactive coordinator and judgment</text>
+  <text x="44" y="103" font-size="11" class="t-muted">top model tier, extended thinking</text>
+  <rect x="302" y="52" width="256" height="66" rx="4" class="box"/>
+  <text x="314" y="72" font-size="12" font-weight="600">Subagent lane</text>
+  <text x="314" y="88" font-size="11" class="t-muted">delegated workers: reads, edits, research</text>
+  <text x="314" y="103" font-size="11" class="t-muted">cheapest capable tier</text>
+  <rect x="572" y="52" width="256" height="66" rx="4" class="box"/>
+  <text x="584" y="72" font-size="12" font-weight="600">Workflow lane</text>
+  <text x="584" y="88" font-size="11" class="t-muted">scripted multi-agent runs</text>
+  <text x="584" y="103" font-size="11" class="t-muted">tier route set on every spawn</text>
+
+  <!-- Lanes to hook plane -->
+  <path d="M160,118 L160,160" class="edge" marker-end="url(#ah)"/>
+  <path d="M430,118 L430,160" class="edge" marker-end="url(#ah)"/>
+  <path d="M700,118 L700,160" class="edge" marker-end="url(#ah)"/>
+
+  <!-- Hook plane -->
+  <rect x="20" y="162" width="820" height="118" rx="6" class="plane hook"/>
+  <text x="32" y="182" font-size="12" font-weight="600">One hook plane: 44 scripts wired by lifecycle event</text>
+  <rect x="32" y="194" width="124" height="74" rx="4" class="box"/>
+  <text x="40" y="211" font-size="11" font-weight="600">session start</text>
+  <text x="40" y="226" font-size="10" class="t-muted">inject brain context</text>
+  <text x="40" y="239" font-size="10" class="t-muted">and learning sheet</text>
+  <text x="40" y="256" font-size="10" class="t-muted">2 wired</text>
+
+  <rect x="166" y="194" width="124" height="74" rx="4" class="box"/>
+  <text x="174" y="211" font-size="11" font-weight="600">prompt submit</text>
+  <text x="174" y="226" font-size="10" class="t-muted">capture to ledger</text>
+  <text x="174" y="239" font-size="10" class="t-muted">classify intent, route</text>
+  <text x="174" y="256" font-size="10" class="t-muted">5 wired</text>
+
+  <rect x="300" y="194" width="124" height="74" rx="4" class="box"/>
+  <text x="308" y="211" font-size="11" font-weight="600">pre-tool-use</text>
+  <text x="308" y="226" font-size="10" class="t-muted">the gate: refuse</text>
+  <text x="308" y="239" font-size="10" class="t-muted">before the tool runs</text>
+  <text x="308" y="256" font-size="10" class="t-muted">9 wired</text>
+
+  <rect x="434" y="194" width="124" height="74" rx="4" class="box"/>
+  <text x="442" y="211" font-size="11" font-weight="600">post-tool-use</text>
+  <text x="442" y="226" font-size="10" class="t-muted">injection scan</text>
+  <text x="442" y="239" font-size="10" class="t-muted">lint, digest</text>
+  <text x="442" y="256" font-size="10" class="t-muted">5 wired</text>
+
+  <rect x="568" y="194" width="124" height="74" rx="4" class="box"/>
+  <text x="576" y="211" font-size="11" font-weight="600">stop</text>
+  <text x="576" y="226" font-size="10" class="t-muted">output gate, queue nudge</text>
+  <text x="576" y="239" font-size="10" class="t-muted">cost row</text>
+  <text x="576" y="256" font-size="10" class="t-muted">5 wired</text>
+
+  <rect x="702" y="194" width="124" height="74" rx="4" class="box"/>
+  <text x="710" y="211" font-size="11" font-weight="600">session end</text>
+  <text x="710" y="226" font-size="10" class="t-muted">write continuity note</text>
+  <text x="710" y="239" font-size="10" class="t-muted">reap helpers</text>
+  <text x="710" y="256" font-size="10" class="t-muted">3 wired</text>
+
+  <path d="M156,231 L166,231" class="edge" marker-end="url(#ah)"/>
+  <path d="M290,231 L300,231" class="edge" marker-end="url(#ah)"/>
+  <path d="M424,231 L434,231" class="edge" marker-end="url(#ah)"/>
+  <path d="M558,231 L568,231" class="edge" marker-end="url(#ah)"/>
+  <path d="M692,231 L702,231" class="edge" marker-end="url(#ah)"/>
+
+  <!-- pre-tool-use to security plane -->
+  <path d="M362,268 L362,310" class="edge" marker-end="url(#ah)"/>
+
+  <!-- Security plane -->
+  <rect x="20" y="312" width="490" height="96" rx="6" class="plane sec"/>
+  <text x="32" y="332" font-size="12" font-weight="600">Security plane: fail-closed by design</text>
+  <rect x="32" y="344" width="106" height="52" rx="4" class="box"/>
+  <text x="40" y="362" font-size="11" font-weight="600">security guard</text>
+  <text x="40" y="378" font-size="10" class="t-muted">refuses unsafe calls</text>
+  <rect x="148" y="344" width="106" height="52" rx="4" class="box"/>
+  <text x="156" y="362" font-size="11" font-weight="600">sensitive-write</text>
+  <text x="156" y="378" font-size="10" class="t-muted">guards rule files</text>
+  <rect x="264" y="344" width="112" height="52" rx="4" class="box"/>
+  <text x="272" y="362" font-size="11" font-weight="600">action registry</text>
+  <text x="272" y="378" font-size="10" class="t-muted">ACT / ASK / HARD-ASK</text>
+  <rect x="386" y="344" width="106" height="52" rx="4" class="box"/>
+  <text x="394" y="362" font-size="11" font-weight="600">hook integrity</text>
+  <text x="394" y="378" font-size="10" class="t-muted">blessed hashes</text>
+
+  <!-- Scheduler plane (right) -->
+  <rect x="636" y="312" width="204" height="96" rx="6" class="plane sched"/>
+  <text x="648" y="332" font-size="12" font-weight="600">Scheduler plane</text>
+  <rect x="648" y="344" width="180" height="52" rx="4" class="box"/>
+  <text x="656" y="362" font-size="11" font-weight="600">one orchestrator, one watchdog</text>
+  <text x="656" y="378" font-size="10" class="t-muted">watchdog ticks the ticker</text>
+
+  <!-- Durable state (left bottom) -->
+  <rect x="20" y="440" width="480" height="100" rx="6" class="plane state"/>
+  <text x="32" y="460" font-size="12" font-weight="600">Durable state</text>
+  <rect x="32" y="472" width="106" height="52" rx="4" class="box"/>
+  <text x="40" y="490" font-size="11" font-weight="600">work ledger</text>
+  <text x="40" y="506" font-size="10" class="t-muted">nothing dropped</text>
+  <rect x="148" y="472" width="106" height="52" rx="4" class="box"/>
+  <text x="156" y="490" font-size="11" font-weight="600">escalations</text>
+  <text x="156" y="506" font-size="10" class="t-muted">written protocol</text>
+  <rect x="264" y="472" width="106" height="52" rx="4" class="box"/>
+  <text x="272" y="490" font-size="11" font-weight="600">brain</text>
+  <text x="272" y="506" font-size="10" class="t-muted">entities, patterns</text>
+  <rect x="380" y="472" width="106" height="52" rx="4" class="box"/>
+  <text x="388" y="490" font-size="11" font-weight="600">continuity notes</text>
+  <text x="388" y="506" font-size="10" class="t-muted">before hard work</text>
+
+  <!-- Oversight layer (right bottom) -->
+  <rect x="520" y="440" width="320" height="100" rx="6" class="plane sched"/>
+  <text x="532" y="460" font-size="12" font-weight="600">Oversight layer: 111 scripts, 67 scheduled</text>
+  <rect x="532" y="472" width="296" height="52" rx="4" class="box"/>
+  <text x="540" y="490" font-size="11" font-weight="600">fast / hourly / daily / weekly</text>
+  <text x="540" y="506" font-size="10" class="t-muted">audits, routing, briefing, growth; propose-only growth lane</text>
+
+  <!-- Edges: scheduler -> oversight layer -->
+  <path d="M738,396 L738,438" class="edge" marker-end="url(#ah)"/>
+  <!-- oversight layer -> durable state -->
+  <path d="M520,498 L500,498" class="edge" marker-end="url(#ah)"/>
+  <!-- oversight layer spawns workflow lane (dashed, up the right margin) -->
+  <path d="M832,470 L852,470 L852,85 L830,85" class="edge-dash" marker-end="url(#ah)"/>
+  <text x="846" y="290" font-size="9" class="t-muted" transform="rotate(-90 846 290)">spawns workflow runs</text>
+  <!-- hook plane <-> durable state (stop writes; session start reads) -->
+  <path d="M96,268 L96,300 L10,300 L10,498 L20,498" class="edge-dash" marker-end="url(#ah)"/>
+  <text x="14" y="430" font-size="9" class="t-muted" transform="rotate(-90 14 430)">injected at session start</text>
+  <path d="M630,268 L630,424 L470,424 L470,440" class="edge" marker-end="url(#ah)"/>
+  <text x="470" y="420" font-size="9" class="t-muted">stop hooks write ledger, cost row</text>
+</svg>
+<figcaption>Generic labels only. Boxes are planes and lanes; arrows are the recorded direction of control. No individual hook, job or script is named.</figcaption>
+</figure>
+
+<p><strong>Main lane.</strong> The interactive session is the coordinator and judgment layer. It is pinned to the top model tier with extended thinking, and anything with judgment, synthesis, security or irreversibility in it stays there.</p>
+<p><strong>Subagent lane.</strong> Delegated workers handle reads, edits, research and verification on the cheapest capable model tier. The rule is escalate on doubt, never degrade: a too-cheap model on judgment work is a correctness failure; a too-expensive model on routine work only costs money.</p>
+<p><strong>Workflow lane.</strong> Scripted multi-agent runs. A model-tier route must be set explicitly on every spawn, and a gate hook enforces that.</p>
+<p>All three lanes pass through the same hook plane. Policy lives there rather than in prose: a hook that returns non-zero stops the call.</p>
+
+<h2>Hook plane by lifecycle event (2026-09-18)</h2>
+<p>44 hook scripts wired by event through the runtime settings file.</p>
+<div class="wrap"><table>
+<tr><th>Event</th><th class="num">Wired</th><th>What runs there</th></tr>
+<tr><td>Session start</td><td class="num">2</td><td>Injects brain context and a learning sheet</td></tr>
+<tr><td>Prompt submit</td><td class="num">5</td><td>Captures the prompt, classifies intent, routes capability</td></tr>
+<tr><td>Pre-tool-use</td><td class="num">9</td><td>The gate. Refuses unsafe calls before the tool runs</td></tr>
+<tr><td>Post-tool-use</td><td class="num">5</td><td>Scans for injection, lints, digests</td></tr>
+<tr><td>Stop</td><td class="num">5</td><td>Anti-sycophancy gate, queue nudge, cost row</td></tr>
+<tr><td>Session end</td><td class="num">3</td><td>Writes a continuity note; reaps orphaned browser and helper processes</td></tr>
+<tr><td>Seven further events</td><td class="num">1 script</td><td>One telemetry script on 7 further events</td></tr>
+</table></div>
+<p>Every hook is classified by failure direction: blocking guards fail closed, advisory scanners fail open, and known limitations are recorded rather than removed.</p>
+
+<h2>Security plane</h2>
+<p>Fail-closed by design.</p>
+<ul>
+<li>A pre-tool-use security guard refuses secrets exposure, remote-code pipes into a shell, mass deletion and remote-access vectors.</li>
+<li>A sensitive-write guard protects the core rule files, the standing-rules text, the settings files and the routing config from unguarded edits.</li>
+<li>An action registry scores every action by reversibility times blast radius and resolves it to ACT, ASK or HARD-ASK.</li>
+<li>Hook integrity: hook scripts are hash-stamped against a blessed manifest. Any CHANGED row is investigated before re-blessing.</li>
+<li>A model-route gate enforces cheapest-capable-tier per spawn.</li>
+<li>A token-cost ledger hook logs a cost row per turn and, by rule, reports cost but never blocks or downgrades a task.</li>
+</ul>
+
+<h2>Scheduler plane and cadence bands</h2>
+<p>OS scheduler entries tick a single orchestrator that dispatches every recurring job from a manifest, with a grace period and mode per row. A separate watchdog scheduler entry watches the orchestrator itself to catch a dead ticker.</p>
+<p>The oversight layer is 111 scripts, 67 of them scheduled, in four cadence bands. Individual jobs are not named here.</p>
+<div class="wrap"><table>
+<tr><th>Band</th><th>Cadence</th><th>What lives there</th></tr>
+<tr><td>Fast interval</td><td>5 to 30 minutes</td><td>Relays, sentinels and responders that must notice within the hour</td></tr>
+<tr><td>Hourly</td><td>1 to 6 hours</td><td>Liveness, escalation triage and reasoning passes</td></tr>
+<tr><td>Daily</td><td>35 rows between early morning and late evening</td><td>Audit, routing, briefing and growth</td></tr>
+<tr><td>Weekly</td><td>once a week</td><td>Deep audits, security sweeps, scoring and a tech radar</td></tr>
+</table></div>
+<p>Cadence descriptions are designed behaviour. Uptime is not measured on this page; the 90-day evidence page carries a measured liveness figure.</p>
+
+<h2>Memory, ledgers and escalation</h2>
+<ul>
+<li>Durable memory is split into an action, intent and routing canon; entity facts with temporal validity, one file per person, system or project; and a recurring-problems file injected into every session, where twice-failed issues are promoted.</li>
+<li>Ledger principle: nothing is done until it is written down. A hook-enforced work ledger holds captured prompts and agent-filed findings; done rows rotate to an append-only archive.</li>
+<li>Blockers needing human hands, credentials or judgment go to a structured escalation file governed by a written protocol.</li>
+<li>A separate propose-only growth system runs under its own written constitution. It audits daily, measures growth with an externally counted metric (never a model self-rating) and cannot auto-apply outside the constitution's hard-rule bounds.</li>
+</ul>
+
+<h2>Backups and replication</h2>
+<p>A daily script packs canon, hooks, scripts and brains with four sha256 stamps and a verified zip. A daily janitor enforces retention. A replication pack reproduces the counts on a fresh machine. Eviction moves files to an archive rather than deleting. Local models are used only for low-stakes background plumbing, never for reasoning. Code is pushed only when asked and never force-pushed to shared branches.</p>
+
+<h2>Four layers of proof</h2>
+<p>Each component in the register carries a panel with four layers, graded independently: Source, Installed, Runtime, Outcome. States are explicit (PASS, BLOCKED, UNKNOWN) and a green in one layer is never inherited by another. Missing fields render as "Not recorded" rather than being inferred.</p>
+<p>What that looks like in the record:</p>
+<ul>
+<li>A source-layer verifier exited 0 with all layers passing, including 20 provider-identity tests and 8 quoted-fragment tests.</li>
+<li>Regression coverage: 159 bridge cases and 142 path regressions pass; 12 environment-specific pinned-guard cases were skipped and reported as skipped, not passed.</li>
+<li>When a layer was not exercised, the record says "Installed layer was explicitly not run" instead of leaving it blank.</li>
+<li>The installed-layer verifier was denied by an active pre-tool-use guard hook. The record marks that layer BLOCKED pending attended review rather than green.</li>
+<li>Runtime evidence for the second agent runtime came from a deliberate deny-probe that the guard hook blocked with the exact expected denial. Scope is stated narrowly: a passing probe "proves this dispatch path only", and an unmeasured transition is labelled unmeasured.</li>
+<li>The register caught a config-versus-docs drift: the live hook wiring for the second runtime differed from the wiring its adapter document described.</li>
+</ul>
+<p>Accountability tallies in the register: 20 recorded checks, 11 open gaps, 9 audit-history entries, 3 resolved check limitations. A blank or unmeasured field is never treated as a pass.</p>
+
+<h2>How the parts gate each other</h2>
+<p>A prompt enters the main lane. Before the model sees it, session-start hooks have already injected the brain context and the learning sheet; prompt-submit hooks capture it to the ledger and classify its intent, which decides the model route for anything the session delegates.</p>
+<p>When the model calls a tool, the pre-tool-use gate runs first. The security guard, the sensitive-write guard and the action registry each get a veto; any non-zero exit stops the call. Subagent and workflow lanes pass through the same gate, with a route check on every spawn.</p>
+<p>After the tool returns, post-tool-use hooks scan the output for injection and label what is untrusted. At stop, the output gate checks the answer, the queue nudge flags un-triaged ledger rows, and the cost row lands.</p>
+<p>Outside any session, the orchestrator ticks the scheduled jobs; the watchdog ticks the orchestrator; hook integrity checks the gate itself against blessed hashes; the oversight layer audits the results and writes findings back into the same ledger and escalation file that the next session-start hook will inject. The growth system reads all of it and may only propose.</p>
+
+<h2>What this page does not claim</h2>
+<ul>
+<li>That the estate is healthy. The register carries passing runtime evidence for 7 of 2,692 components and says so.</li>
+<li>That the counts agree. Two instruments, two dates, two sets of numbers.</li>
+<li>That cadence equals uptime. Designed behaviour is described here; measured liveness is on the 90-day page.</li>
+<li>That the atlas is a remote-device inventory. It is a private observed snapshot, limited to the recorded scope and receipts.</li>
+</ul>
+<p>The component register is a self-contained static page: no remote libraries, no telemetry, no background probes, no live control actions. The register's own footer warns that its paths may contain private machine information and should be reviewed before sharing. They were.</p>
+
+<footer>Excerpt of a private system · numbers as measured on the stated date · portions intentionally omitted</footer>
+</main>
+</body>
+</html>

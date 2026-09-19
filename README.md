@@ -41,6 +41,18 @@ servers tied to a particular domain, and anything from a client engagement. The 
 were re-pathed, stripped of private references and re-tested before publication. History
 starts at this repository's first commit.
 
+## Proof of work
+
+Excerpts of the private system these hooks came from, redacted to shape, counts and honesty framing:
+
+| Page | What it shows |
+|---|---|
+| [System atlas](docs/proof-of-work/system-atlas.md) ([standalone HTML](docs/proof-of-work/system-atlas.html)) | 2,692 components in 10 categories; three execution lanes, one hook plane; 44 hooks by lifecycle event; a fail-closed security plane; the four-layer proof model where a blank is never a pass. |
+| [Client case brief](docs/proof-of-work/client-case-brief.md) | An anonymized 15-system marketing design for a consumer brand in a regulated-claims category: a refusal layer, a whitelist-only claims gate, a three-value measurement rule. Per the deliverable, eleven of the fifteen are designed and not built; nothing switched on. |
+| [Automation evidence, 90 days](docs/proof-of-work/automation-evidence-90d.md) | Measured review: 144 scheduled jobs, about 87% liveness, 259 unattended posts on 5 platforms, and the unflattering half. Short-term; outcomes may change. |
+
+Nothing in that section is verifiable from this repository, and its counts differ from the table above because they were measured on different days. Paths, component names, schedules and client identities are left out on purpose; see [docs/proof-of-work/README.md](docs/proof-of-work/README.md).
+
 ## Design principles
 
 1. **Enforce with hooks, guide with prompts.** If a rule matters it gets a hook, an
