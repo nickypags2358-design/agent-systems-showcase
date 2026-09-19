@@ -1,0 +1,3 @@
+# atelier / forge / vision MCP servers are stdlib-only (sys, json, math, os,
+# hashlib, colorsys, re, subprocess, zipfile, datetime, struct, zlib).
+# No third-party packages required. This file is intentionally empty.

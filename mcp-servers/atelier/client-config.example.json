@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "atelier": {
+      "command": "python3",
+      "args": ["/absolute/path/to/mcp-servers/atelier/atelier_mcp.py"],
+      "env": { "ATELIER_OUT_DIR": "/absolute/path/to/output/atelier-out" }
+    },
+    "forge": {
+      "command": "python3",
+      "args": ["/absolute/path/to/mcp-servers/atelier/forge_mcp.py"],
+      "env": { "FORGE_OUT_DIR": "/absolute/path/to/output/atelier-out/widgets" }
+    },
+    "vision": {
+      "command": "python3",
+      "args": ["/absolute/path/to/mcp-servers/atelier/vision_mcp.py"],
+      "env": { "VISION_SHOTS_DIR": "/absolute/path/to/output/atelier-out/shots" }
+    }
+  }
+}

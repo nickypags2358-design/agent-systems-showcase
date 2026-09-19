@@ -1,0 +1,64 @@
+# actions.example.yaml — sample action registry for action-gate.sh.
+# Each row scores an action class by reversibility x blast_radius:
+#   ACT   = HIGH reversibility x any radius, or MED x SCOPED   -> no gate needed
+#   ASK   = MED x BROAD, LOW x SCOPED                          -> ask before running
+#   HARD-ASK = LOW x BROAD                                     -> always deny; a human runs it
+# Override the path with ACTION_GATE_REGISTRY=/path/to/your.yaml
+
+publish_external:
+  reversibility: LOW
+  blast_radius: BROAD
+  tier: HARD-ASK
+  note: "Public/irreversible; may be cached or indexed. Can not unsend."
+
+financial_transaction:
+  reversibility: LOW
+  blast_radius: BROAD
+  tier: HARD-ASK
+  note: "Money movement is never the agent's call."
+
+modify_security_config:
+  reversibility: LOW
+  blast_radius: BROAD
+  tier: HARD-ASK
+  note: "OS/security posture."
+
+mass_delete:
+  reversibility: LOW
+  blast_radius: BROAD
+  tier: HARD-ASK
+  note: "Hard to undo, wide blast."
+
+git_force_push:
+  reversibility: LOW
+  blast_radius: BROAD
+  tier: HARD-ASK
+  note: "Rewrites shared history."
+
+git_push:
+  reversibility: MED
+  blast_radius: BROAD
+  tier: ASK
+  note: "Publishes to a shared remote."
+
+git_commit:
+  tier: ASK
+  note: "Named override — commit/push only when explicitly asked."
+
+install_dependency:
+  reversibility: MED
+  blast_radius: SCOPED
+  tier: ASK
+  note: "Supply-chain + lockfile impact; confirm the source."
+
+call_external_api_write:
+  reversibility: LOW
+  blast_radius: BROAD
+  tier: ASK
+  note: "Mutates remote state."
+
+rm_recursive:
+  reversibility: LOW
+  blast_radius: SCOPED
+  tier: ASK
+  note: "Recursive delete outside a known-safe scratch path."
