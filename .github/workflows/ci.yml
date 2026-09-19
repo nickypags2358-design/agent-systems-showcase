@@ -17,6 +17,12 @@ jobs:
         run: bash ./verify.sh
   secrets:
     runs-on: ubuntu-latest
+    # gitleaks-action lists the PR's commits on pull_request events; the
+    # workflow-wide token is contents:read only, so grant that one job
+    # read access to pull requests. Comments stay off so no write scope is needed.
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -25,3 +31,4 @@ jobs:
         uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"
