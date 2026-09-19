@@ -29,6 +29,24 @@ CHROME = os.environ.get("CHROME_BIN", "/Applications/Google Chrome.app/Contents/
 # Screenshot output directory: override with VISION_SHOTS_DIR, else write under
 # the current working directory.
 SHOTS = os.environ.get("VISION_SHOTS_DIR", os.path.join(os.getcwd(), "atelier-out", "shots"))
+# Local files may only be captured or analysed from inside this directory
+# (default: the parent of SHOTS). Everything else is rejected before Chrome starts.
+LOCAL_DIR = os.path.realpath(os.environ.get("VISION_LOCAL_DIR", os.path.dirname(SHOTS)))
+
+def local_path(p):
+    """Resolve p and refuse anything outside LOCAL_DIR (traversal, symlinks, absolute paths)."""
+    real = os.path.realpath(p)
+    if os.path.commonpath([LOCAL_DIR, real]) != LOCAL_DIR:
+        raise ValueError("local files are only allowed under " + LOCAL_DIR + ": " + p)
+    return real
+
+def capture_target(url):
+    """Only http(s) URLs or local files under LOCAL_DIR may be handed to Chrome."""
+    if "://" in url:
+        if not url.lower().startswith(("http://", "https://")):
+            raise ValueError("only http(s) URLs can be captured: " + url)
+        return url
+    return "file://" + local_path(url)
 
 # ── capture ──────────────────────────────────────────────────────────────────
 
@@ -45,7 +63,7 @@ def capture(url, w=1440, h=1000, out=None, full=False, wait=9000, scheme=None):
         cmd.append("--screenshot-full-page")   # honoured by newer builds
     if scheme in ("dark", "light"):
         cmd.append(f"--force-prefers-color-scheme={scheme}")
-    cmd.append(url)
+    cmd.append(capture_target(url))
     subprocess.run(cmd, capture_output=True, timeout=90)
     if not os.path.exists(out):
         raise RuntimeError("capture produced no file")
@@ -55,7 +73,7 @@ def capture(url, w=1440, h=1000, out=None, full=False, wait=9000, scheme=None):
 
 def png_read(path):
     """Decode a PNG to (w, h, rows[bytes RGBA]) using zlib + manual unfiltering."""
-    d = open(path, "rb").read()
+    d = open(local_path(path), "rb").read()
     assert d[:8] == b"\x89PNG\r\n\x1a\n", "not a png"
     pos, idat = 8, b""
     w = h = bitd = ct = None

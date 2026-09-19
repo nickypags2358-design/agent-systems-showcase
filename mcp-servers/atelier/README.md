@@ -30,12 +30,14 @@ if Chrome isn't found at the default path, set `CHROME_BIN`. Everything else
 
 ## Network and file access
 
-`vision_mcp.py` `capture` and `forge_mcp.py` `render_png` hand the URL or file path
-you supply straight to a locally installed headless Chrome. That process can reach the
-network and read any local file the user points it at, so treat those two tools as
-having the same reach as opening the same URL/file in your own browser. The "zero API
-calls" claim above refers to paid image-generation APIs only, not to network access in
-general.
+`vision_mcp.py` `capture` and `forge_mcp.py` `render_png` hand a URL to a locally
+installed headless Chrome. Both accept only `http(s)` URLs, or local files that live
+inside the server's own output directory (`VISION_LOCAL_DIR`, default the parent of the
+shots folder, and the forge output directory respectively). `file://`, other schemes and
+any path outside those directories are rejected before Chrome starts, and the PNG
+analysis tools apply the same local-directory rule. The Chrome process can still reach
+the network for the URL you pass, so treat a capture as opening that URL in your own
+browser. The "zero API calls" claim above refers to paid image-generation APIs only.
 
 ## Configuration (env overrides, all optional)
 
